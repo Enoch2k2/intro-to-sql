@@ -51,7 +51,7 @@ DROP TABLE books;
 - ADD
 
 ```
-    ALTER TABLE books COLUMN publishing_date TEXT;
+    ALTER TABLE books ADD COLUMN publishing_date TEXT;
 ```
 
 - DROP (???) - drop doesn't work in sqlite3.
