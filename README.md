@@ -46,7 +46,6 @@ DROP TABLE books;
 ### ALTER TABLE
 
 - Add columns to our table
-- Remove columns from our table
 
 - ADD
 
@@ -116,8 +115,56 @@ SELECT genre, COUNT(genre) FROM books GROUP BY genre ORDER BY COUNT(genre) DESC 
 
 ### HAVING
 
+Used to have conditions that use aggregates. Must have a GROUP BY to be able to use.
+
+```
+SELECT books.title FROM books GROUP BY books.title HAVING MAX(books.number_of_pages) > 400;
+
+SELECT books.title FROM books GROUP BY books.title HAVING MAX(books.number_of_pages) > (SELECT AVG(books.number_of_pages) FROM books GROUP BY books.number_of_pages);
+```
+
+Last tip: you can do a query inside of another query.
+
 ### JOIN
 
+3 different relationships:
+
+- belongs_to ( foreign_key )
+- has_many
+- many to many ( one `belong_to` with two or more `has many`)
+
+Can be used to add related tables to your query. We use `JOIN` to say which table we would like to bring into our query. We use `ON` to say how they are connected to foriegn keys. For example.
+
+belongs_to / has_many
+
+```
+SELECT * FROM authors
+JOIN books
+ON books.author_id = authors.id;
+```
+
+many to many
+
+```
+SELECT * FROM authors
+JOIN books
+ON books.author_id = authors.id
+JOIN genre
+ON books.genre_id = genres.id;
+```
+
 ### UPDATE
+
+Updates a column in a record for example
+
+Books with id of 1 doesn't have an author_id assigned. So we can update that record by doing:
+
+```
+UPDATE books
+SET books.author_id = 1
+WHERE books.id = 1;
+```
+
+This will update the book with the id of 1 to have the author with the primary key of 1 as it's author.
 
 ### Advanced Query Practice
